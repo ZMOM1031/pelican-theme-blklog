@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{% block description %}{{ DESCRIPTION }}{% endblock %}">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/theme/css/style.css">
+    <link rel="stylesheet" href="/theme/css/prism.css">
+    <!-- <script src="/theme/js/int/html5shiv.min.js"></script> -->
+</head>
+
+<body>
+    <div id="main">
+    <header id="header">
+        <h1 id="header-title">
+            <a href="/">{% if ALT_NAME %}{{ ALT_NAME }}{% else %}{{ SITENAME }}{% endif %}</a>
+        </h1>
+    </header>
+
+    <div id="body">
+
+        {% block content %}
+        {% endblock %}
+
+        <div id="sidebar">
+            {% if DISPLAY_PAGES_ON_MENU != False %}
+            <div class="panel panel-box">
+                <ul><li class="nav-header">Pages</li></ul>
+                <ul class="nav nav-side">
+                    {% for p in PAGES %}
+                    <li {% if page_name == 'archives' %}class="active"{% endif %}><a href="/archives.html">Archives</a></li>
+                    <li {% if p == page %}class="active"{% endif %}>
+                        <a href="/{{ p.url }}">{{ p.title }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <div class="panel panel-box">
+                <ul><li class="nav-header">Categories</li></ul>
+                <ul class="nav nav-side">
+                    {% for cat, _ in categories %}
+                    <li {% if cat == category %}class="active"{% endif %}><a href="/{{ cat.url }}">{{ cat }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            {% if LINKS %}
+            <div class="panel panel-box">
+                <ul><li class="nav-header">Links</li></ul>
+                <ul class="nav nav-side">
+                    {% for name, link in LINKS %}
+                    <li><a href="{{ link }}" target="_blank">{{ name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            {% if PROJECTS %}
+            <div class="panel panel-box">
+                <ul><li class="nav-header">Projects</li></ul>
+                <ul class="nav nav-side">
+                    {% for name, link in PROJECTS %}
+                    <li><a href="{{ link }}" target="_blank">{{ name }}</a></li>
+                    {% endfor %}
+                    </ul>
+            </div>
+            {% endif %}
+
+            {% if SOCIAL %}
+            <div class="panel panel-box">
+                <ul><li class="nav-header">Contacts</li></ul>
+                <ul class="nav nav-side">
+                    {% for name, link in SOCIAL %}
+                    <li><a href="{{ link }}" target="_blank">{{ name }}</a></li>
+                    {% endfor %}
+                    <li><a class="mg-feed" href="/{{ FEED_ALL_ATOM }}" target="_blank" type="application/atom+xml"><i class="icon-rss icon-medium"></i><span>RSS Feed</span></a></li>
+                </ul>
+            </div>
+            {% endif %}
+
+            {% block visitors %}
+            {% endblock %}
+        </div>
+    </div>
+
+    <footer id="footer">
+        <p>{{ FOOTER }}</p>
+        <p class="copyright">Copyright &copy; {{ SITENAME }}</p>
+        <p>Theme by <a href="https://github.com/ZMOM1031/pelican-theme-blklog" target="_blank">Blklog</a> · Powered by <a href="http://blog.getpelican.com" target="_blank">Pelican</a></p>
+        <p></p>
+    </footer>
+    </div>
+<script src="/theme/js/jquery-3.1.0.min.js"></script>
+<script src="/theme/js/main.js"></script>
+<script src="/theme/js/prism.min.js"></script>
+<script src="/theme/js/console.js"></script>
+{% include 'analytics.html' %}
+</body>
+</html>

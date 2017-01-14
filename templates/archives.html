@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Archives | {{ SITENAME }}{% endblock %}
+{% block description %}{% endblock %}
+
+{% block content %}
+<div id="page">
+    <h1 class="heading-large">Archives</h1>
+
+    {% for article in (articles_page.object_list if articles_page else articles) %}
+    <h2 class="post">
+        <span class="postdate">[{{ article.date.strftime('%Y-%m-%d') }}]</span>
+        <span>&nbsp;</span>
+        <a href="/{{ article.url }}">{{ article.title }}</a>
+    </h2>
+    {% endfor %}
+
+</div>
+{% endblock %}
+
+{% block visitors %}
+<div class="panel panel-box">
+    <ul><li class="nav-header">Visitors</li></ul>
+    <ul class="ds-recent-visitors" data-num-items="20"></ul>
+    <!--多说js加载开始，一个页面只需要加载一次 -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"{{ DUOSHUO_SITENAME }}"};
+    	(function() {
+    		var ds = document.createElement('script');
+    		ds.type = 'text/javascript';ds.async = true;
+    		/* ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js'; */
+            ds.src = '/theme/js/duoshuo/embed.js';
+    		ds.charset = 'UTF-8';
+    		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+    	})();
+    </script>
+    <!--多说js加载结束，一个页面只需要加载一次 -->
+</div>
+{% endblock %}
